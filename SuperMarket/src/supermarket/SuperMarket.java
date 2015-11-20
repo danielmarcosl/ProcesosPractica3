@@ -1,5 +1,6 @@
 package supermarket;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -12,47 +13,53 @@ public class SuperMarket {
     public static int cajas = 5;
     // Numero de clientes
     public static int clientes = 0;
-    // Indicador de si hay una caja libre
-    public static boolean cajaLibre = true;
-
+    // Numero de clientes atendidos
+    public static int clientesAtendidos = 0;
+    // Numero de caja asignada a cada cliente
+    public static ArrayList<Integer> cajaCliente;
+    // Array que contiene los clientes
+    public static Cliente cli[];
     // Boolean para controlar las cajas
     public static boolean pagando[] = new boolean[cajas];
 
-    public static void comprobarCajasLibres() {
-        boolean libre = false;
-
-        while (!libre) {
-            for (int i = 0; i < SuperMarket.cajas; i++) {
-                if (SuperMarket.pagando[i] == false) {
-                    cajaLibre = true;
-                    break;
-                }
-            }
-            cajaLibre = false;
-            break;
+    /**
+     * Metodo para declarar que las cajas estan vacias al iniciar el programa
+     */
+    public static void inicializarEstadoCajas() {
+        for (int i = 0; i < cajas; i++) {
+            pagando[i] = false;
         }
+    }
+
+    /**
+     * Metodo para generar un numero aleatorio de clientes
+     */
+    public static void calcularClientes() {
+        Random r = new Random();
+        int m = r.nextInt(500) + 1;
+        clientes = m;
+        System.out.println("Hay " + clientes + " clientes");
     }
 
     public static void main(String[] args) {
 
         // Se declaran que estan libres las cajas
-        for (int i = 0; i < cajas; i++) {
-            pagando[i] = false;
-        }
+        inicializarEstadoCajas();
 
         // Se crea un numero aleatorio de clientes
-        Random r = new Random();
-        int m = r.nextInt(500) + 1;
-        clientes = m;
-        System.out.println("Hay " + clientes + " clientes");
+        calcularClientes();
 
-        // Creamos un array de clientes para lanzarlos
-        Cliente cli[] = new Cliente[clientes];
+        // Inicializamos el array de clientes
+        cli = new Cliente[clientes];
+        cajaCliente = new ArrayList<Integer>(clientes);
 
+        // Lanzamos los clientes
         for (int i = 0; i < clientes; i++) {
             cli[i] = new Cliente(i);
             cli[i].start();
         }
-
+        
+        AsignadorCajas asignador = new AsignadorCajas();
+        asignador.start();
     }
 }

@@ -5,12 +5,13 @@ import java.util.Random;
 /**
  *
  * @author Daniel Marcos Lorrio
+ * @version 2 20/11/2015
  */
 public class Cliente extends Thread {
 
     int num = 0;
-
-    public static Caja c = new Caja();
+    
+    Caja c = new Caja();
 
     public Cliente(int n) {
         this.num = n;
@@ -19,10 +20,9 @@ public class Cliente extends Thread {
     public void run() {
 
         Random r = new Random();
-        int pago = r.nextInt(40) + 1;
+        int pago = r.nextInt(200) + 1;
 
-        int caja = c.cogerNumero();
-
-        c.atenderCliente(num, pago, caja);
+        c.ponerseEnCola();
+        Caja.atenderCliente(num, pago);
     }
 }

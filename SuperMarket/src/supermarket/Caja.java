@@ -2,6 +2,8 @@ package supermarket;
 
 import static java.lang.Thread.sleep;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -9,40 +11,23 @@ import java.util.Random;
  */
 public class Caja {
 
-    public synchronized int cogerNumero() {
-
-        boolean buscando = true;
-        int numCaja = 0;
-
-        while (!SuperMarket.cajaLibre) {
-            try {
-                wait(500);
-
-                SuperMarket.comprobarCajasLibres();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+    public synchronized void ponerseEnCola() {
+        try {
+            wait();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Caja.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        for (int i = 0; i < SuperMarket.cajas; i++) {
-            if (SuperMarket.pagando[i] == false) {
-                SuperMarket.pagando[i] = true;
-                buscando = false;
-                numCaja = i;
-            }
-        }
-
-        return numCaja;
     }
 
-    public static void atenderCliente(int n, int p, int c) {
+    public static void atenderCliente(int numeroCliente, int pago) {
 
-        int numCaja = c;
+        int numeroCaja = SuperMarket.cajaCliente.get(numeroCliente);
 
-        System.out.println("El cliente " + n + " esta pagando en la caja " + numCaja);
+        System.out.println("El cliente " + numeroCliente + " esta pagando en la caja " + numeroCaja);
 
+        // Hacemos que espere un tiempo aleatorio para pagar
         Random r = new Random();
-        int tiempo = r.nextInt(4000) + 1;
+        int tiempo = r.nextInt(6000) + 1000;
 
         try {
             sleep(tiempo);
@@ -50,8 +35,9 @@ public class Caja {
             ex.printStackTrace();
         }
 
-        System.out.println("Total a pagar por cliente " + n + ": " + p);
+        System.out.println("Total a pagar por cliente " + numeroCliente + ": " + pago);
 
-        SuperMarket.pagando[numCaja] = false;
+        SuperMarket.pagando[numeroCaja] = false;
+        SuperMarket.clientesAtendidos++;
     }
 }
