@@ -8,9 +8,9 @@ import static java.lang.Thread.sleep;
  */
 public class Caja {
 
-    public synchronized static int asignarCaja() {
+    public synchronized static int asignarCaja(int num) {
         for (int i = 0; i < ModernSuperMarket.cajas; i++) {
-            if (ModernSuperMarket.estadoCaja[i]) {
+            if (ModernSuperMarket.estadoCaja[i]) { // && ModernSuperMarket.clientesAtendidos <= num) {
                 ModernSuperMarket.estadoCaja[i] = false;
                 return i;
             }
@@ -19,13 +19,12 @@ public class Caja {
         return -1;
     }
 
-    public static void pagar(int num, int ca, int pa) {
+    public static void pagar(int num, int ca, int pa) throws InterruptedException {
         System.out.println("Cliente " + num + " esta pagando en la caja " + ca + ", total a pagar " + pa);
-        try {
-            sleep(5000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
+        sleep(5000);
+        System.out.println("Cliente " + num + " ha terminado de pagar");
+
         ModernSuperMarket.estadoCaja[ca] = true;
+        ModernSuperMarket.clientesAtendidos++;
     }
 }

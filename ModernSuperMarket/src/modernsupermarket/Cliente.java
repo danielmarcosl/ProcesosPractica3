@@ -1,6 +1,5 @@
 package modernsupermarket;
 
-import static java.lang.Thread.sleep;
 import java.util.Random;
 
 /**
@@ -22,11 +21,10 @@ class Cliente extends Thread {
         System.out.println("Cliente " + numero + " ha entrado sl supermercado");
 
         try {
-            sleep(1000);
             while (cajaAsignada < 0) {
-                cajaAsignada = caja.asignarCaja();
+                cajaAsignada = caja.asignarCaja(numero);
                 if (cajaAsignada < 0) {
-                    wait();
+                    esperar(numero);
                 }
             }
         } catch (InterruptedException ex) {
@@ -34,9 +32,13 @@ class Cliente extends Thread {
         }
 
         generarPago();
-        
-        caja.pagar(numero, cajaAsignada, pago);
-        
+
+        try {
+            caja.pagar(numero, cajaAsignada, pago);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
         despertar();
     }
 
@@ -44,8 +46,13 @@ class Cliente extends Thread {
         Random r = new Random();
         pago = r.nextInt(100) + 1;
     }
-    
+
     public synchronized void despertar() {
         notifyAll();
+    }
+
+    public synchronized void esperar(int nu) throws InterruptedException {
+        System.out.println(nu + " esperando");
+        wait();
     }
 }
