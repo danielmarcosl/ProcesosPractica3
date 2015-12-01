@@ -13,24 +13,26 @@ class Cliente extends Thread {
     Caja caja;
     int cajaAsignada = -1;
 
-    public Cliente(int n) {
+    public Cliente(int n, Caja c) {
         this.numero = n;
+        this.caja = c;
     }
 
     public void run() {
         System.out.println("Cliente " + numero + " ha entrado sl supermercado");
 
-        try {
-            while (cajaAsignada < 0) {
-                cajaAsignada = caja.asignarCaja(numero);
-                if (cajaAsignada < 0) {
-                    esperar(numero);
-                }
-            }
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
+        cajaAsignada = caja.asignarCaja(numero);
 
+//        try {
+//            while (cajaAsignada < 0) {
+//                cajaAsignada = caja.asignarCaja(numero);
+//                if (cajaAsignada < 0) {
+//                    esperar(numero);
+//                }
+//            }
+//        } catch (InterruptedException ex) {
+//            ex.printStackTrace();
+//        }
         generarPago();
 
         try {
@@ -38,21 +40,10 @@ class Cliente extends Thread {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-
-        despertar();
     }
 
     public void generarPago() {
         Random r = new Random();
         pago = r.nextInt(100) + 1;
-    }
-
-    public synchronized void despertar() {
-        notifyAll();
-    }
-
-    public synchronized void esperar(int nu) throws InterruptedException {
-        System.out.println(nu + " esperando");
-        wait();
     }
 }
