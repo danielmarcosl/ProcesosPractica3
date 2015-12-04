@@ -10,6 +10,14 @@ import java.util.Random;
 public class Metodos {
 
     /**
+     * Metodo para actualizar el panel de informacion
+     */
+    public static void actualizarInfo() {
+        Ventana.info.setText("Clientes actuales: " + (ModernSuperMarket.clientes - ModernSuperMarket.clientesAtendidos)
+                + "\nCajas activas: " + ModernSuperMarket.cajas + "\nRecaudacion total: " + ModernSuperMarket.recaudacion);
+    }
+
+    /**
      * Metodo para inicializar los estados de las cajas
      */
     public static void inicializarCajas() {
@@ -30,13 +38,13 @@ public class Metodos {
     }
 
     /**
-     * Metodo para crear un numero aleatorio entre 1 y 6 para las cajas
+     * Metodo para crear un numero aleatorio entre 2 y 6 para las cajas
      *
      * @return Numero generado
      */
     public static int calcularCajas() {
         Random rand = new Random();
-        int num = rand.nextInt(6) + 4;
+        int num = rand.nextInt(4) + 2;
         return num;
     }
 
@@ -46,8 +54,20 @@ public class Metodos {
      * @return Numero generado
      */
     public static int generarPago() {
-        Random r = new Random();
-        int num = r.nextInt(100) + 1;
+        Random rand = new Random();
+        int num = rand.nextInt(100) + 1;
+        return num;
+    }
+
+    /**
+     * Metodo para crear un numero aleatorio entre 1000 y 6000 para el sleep al
+     * pagar
+     *
+     * @return Numero generado
+     */
+    public static int generarDormir() {
+        Random rand = new Random();
+        int num = rand.nextInt(5000) + 1000;
         return num;
     }
 }
