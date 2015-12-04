@@ -1,6 +1,5 @@
 package modernsupermarket;
 
-import java.awt.TextArea;
 import java.util.Random;
 
 /**
@@ -9,12 +8,6 @@ import java.util.Random;
  * @version 1 01/12/2015
  */
 public class Metodos {
-
-    public static void generarTextFields(int num) {
-        for (int i = 0; i < num; i++) {
-            Ventana.texto_ventana.set(i, new TextArea());
-        }
-    }
 
     /**
      * Metodo para inicializar los estados de las cajas
