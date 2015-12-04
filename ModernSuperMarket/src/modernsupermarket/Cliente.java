@@ -25,9 +25,6 @@ class Cliente extends Thread {
     }
 
     public void run() {
-        // Mostramos el numero del cliente
-        //System.out.println("Cliente " + numero + " ha entrado sl supermercado");
-
         // Le asignamos un numero de caja
         cajaAsignada = caja.asignarCaja();
 
