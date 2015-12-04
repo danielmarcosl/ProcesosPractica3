@@ -37,6 +37,14 @@ public class ModernSuperMarket {
         // Generamos la ventana
         new Ventana(cajas);
 
+        // Anadimos el numero de la caja a cada JTextPane
+        for (int i = 0; i < cajas; i++) {
+            Ventana.texto_ventana.get(i).setText("Caja " + i + "\n");
+        }
+        
+        // Anadimos el texto inicial al panel de informacion
+        Metodos.actualizarInfo();
+
         // Inicializamos la clase Caja
         Caja c = new Caja();
 
