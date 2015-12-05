@@ -4,6 +4,7 @@ package modernsupermarket;
  *
  * @author Daniel Marcos Lorrio
  * @version 1 01/12/2015
+ * @version 2 05/12/2015
  */
 class Cliente extends Thread {
 

@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
  *
  * @author Daniel Marcos Lorrio
  * @version 1 01/12/2015
+ * @version 2 05/12/2015
  */
 public class Ventana {
 
