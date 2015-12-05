@@ -61,14 +61,15 @@ public class Metodos {
     }
 
     /**
-     * Metodo para crear un numero aleatorio entre 1000 y 6000 para el sleep al
-     * pagar
+     * Metodo para crear un numero aleatorio entre 1000 y el numero pasado para
+     * el sleep al pagar
      *
+     * @param n Integer que aumentara el tiempo del sleep
      * @return Numero generado
      */
-    public static int generarDormir() {
+    public static int generarDormir(int n) {
         Random rand = new Random();
-        int num = rand.nextInt(5000) + 1000;
+        int num = rand.nextInt(n) + 1000;
         return num;
     }
 }

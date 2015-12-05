@@ -55,9 +55,9 @@ public class Caja {
      */
     public void pagar(int num, int ca, int pa) throws InterruptedException {
         // Dormimos el hilo simulando que esta pagando y mostramos sus datos
-        sleep(Metodos.generarDormir());
+        sleep(Metodos.generarDormir(3000));
         Ventana.texto_ventana.get(ca).setText(Ventana.texto_ventana.get(ca).getText() + "Cliente " + num + " pagando en " + ca + "\n");
-        sleep(Metodos.generarDormir());
+        sleep(Metodos.generarDormir(5000));
         Ventana.texto_ventana.get(ca).setText(Ventana.texto_ventana.get(ca).getText() + "Cliente " + num + " termina en " + ca + ", pago " + pa + "\n");
 
         // Anadimos el pago a la recaudacion total
@@ -67,14 +67,17 @@ public class Caja {
         // Aumentamos el contador de clientes atendidos
         ModernSuperMarket.clientesAtendidos++;
 
-        // Despertamos los hilos dormidos
+        // Despertamos al siguiente Cliente
         despertar();
 
         // Actualizacion del panel de informacion
         Metodos.actualizarInfo();
     }
 
+    /**
+     * Despierta al siguiente Cliente
+     */
     public synchronized void despertar() {
-        notifyAll();
+        notify();
     }
 }
