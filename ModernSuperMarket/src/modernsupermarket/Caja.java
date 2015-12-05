@@ -56,10 +56,8 @@ public class Caja {
         // Dormimos el hilo simulando que esta pagando y mostramos sus datos
         sleep(Metodos.generarDormir());
         Ventana.texto_ventana.get(ca).setText(Ventana.texto_ventana.get(ca).getText() + "Cliente " + num + " pagando en " + ca + "\n");
-        //System.out.println("Cliente " + num + " pagando en " + ca);
         sleep(Metodos.generarDormir());
         Ventana.texto_ventana.get(ca).setText(Ventana.texto_ventana.get(ca).getText() + "Cliente " + num + " termina en " + ca + ", pago " + pa + "\n");
-        //System.out.println("Cliente " + num + " termina en " + ca + ", pago " + pa);
 
         // Anadimos el pago a la recaudacion total
         ModernSuperMarket.recaudacion += pa;

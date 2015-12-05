@@ -48,10 +48,6 @@ public class ModernSuperMarket {
         // Inicializamos la clase Caja
         Caja c = new Caja();
 
-        // Mostramos los valores de cajas y clientes
-        System.out.println("Han entrado " + clientes + " clientes.\n"
-                + "Hay " + cajas + " cajas operativas.");
-
         // Creamos y lanzamos los clientes
         for (int i = 0; i < clientes; i++) {
             new Cliente(i, c).start();
